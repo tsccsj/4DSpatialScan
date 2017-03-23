@@ -9,7 +9,7 @@ int main(int argc, char ** argv) {
 	
 	if(argc != 8)
 	{
-		printf("Incorrect number of parameters: 4DScanBerAgg [inputFile] [windowInc] [windowCount] [#ofClusters] [#ofMonteCarlo] [HighOrLowIndicator] [elimIntersectOD]\n");
+		printf("Incorrect number of parameters: 4DScanBer [inputFile] [windowInc] [windowCount] [#ofClusters] [#ofMonteCarlo] [HighOrLowIndicator] [elimIntersectOD]\n");
 		printf("[HighOrLowIndicator]\n\t1: High Only\n\t-1: Low Only\n\t0: Both\n");
 		printf("[double elimIntersectOD]\n\t-1: Allow intersect\n\t1.0: Center not in area\n\t2.0: No intersecting\n");
 		exit(1);
