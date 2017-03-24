@@ -94,7 +94,7 @@ void findTopNCluster(double * x1, double * y1, double * x2, double * y2, int loc
 
 	for(int i = 0; i < locCount; i++) {
 		for(int j = 0; j < wCount; j++) {
-			if(ll[i * wCount + j] < 0) {
+			if(ll[i * wCount + j] > -9990) {
 				if(aCenter < 0) {
 					aCenter = i;
 					aRadius = j;
@@ -141,7 +141,7 @@ void findTopNCluster(double * x1, double * y1, double * x2, double * y2, int loc
 
 		for(int i = 0; i < locCount; i++) {
 			for(int j = 0; j < wCount; j++) {
-				if(ll[i * wCount + j] < 0) {
+				if(ll[i * wCount + j] > -9990) {
 					if(aCenter < 0) {
 						aCenter = i;
 						aRadius = j;

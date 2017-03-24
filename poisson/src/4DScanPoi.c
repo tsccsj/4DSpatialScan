@@ -142,7 +142,7 @@ int main(int argc, char ** argv) {
 		exit(1);
 	}
 
-	findTopNCluster(x1, y1, x2, y2, locCount, ll, wSize, wCount, center, radius,  cLL, nClusters);
+	findTopNCluster(x1, y1, x2, y2, locCount, ll, wSize, wCount, center, radius, cLL, nClusters);
 
 	int * clusterPop;
 	int * clusterEvent;
@@ -196,7 +196,7 @@ int main(int argc, char ** argv) {
 	}
 
 	printf("############### Cluster Info ###############\n");
-	printf("ID,HL,X1,Y1,X2,Y2,Radius,Event,ExpEvent,");
+	printf("ID,HL,X1,Y1,X2,Y2,Radius,Event,ExpEvent");
 	if(nSim > 0)
 		printf(",LL,P\n");
 	else
