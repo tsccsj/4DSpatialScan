@@ -51,15 +51,15 @@ int * monteCarlo(double * x1, double * y1, double * x2, double * y2, int * nPop,
 			int simEventInc = 0;
 
 			for(int k = 0; k < locCount; k++) { 
-				if((x1[k] - x1C) * (x1[k] - x1C) + (y1[k] - y1C) * (y1[k] - y1C) + (x2[k] - x2C) * (x2[k] - x1C) + (y2[k] - y1C) * (y2[k] - y2C) <= rad2) {
+				if((x1[k] - x1C) * (x1[k] - x1C) + (y1[k] - y1C) * (y1[k] - y1C) + (x2[k] - x2C) * (x2[k] - x2C) + (y2[k] - y2C) * (y2[k] - y2C) <= rad2) {
 					simEventInc += simEvents[k];
 				}
 			}
 
-			if(highCluster[j] && simEventInc >= clusterEvent[j]) {
+			if(highCluster[j] && (simEventInc >= clusterEvent[j])) {
 				nExtreme[j] ++;
 			}
-			else if(!highCluster[j] && simEventInc <= clusterEvent[j]) {
+			else if(!highCluster[j] && (simEventInc <= clusterEvent[j])) {
 				nExtreme[j] ++;
 			}
 			
