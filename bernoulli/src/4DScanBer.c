@@ -86,11 +86,6 @@ int main(int argc, char ** argv) {
 		exit(1);
 	}
 
-	for(int i = 0; i < locCount * wCount; i++) {
-		casInW[i] = 0;
-		conInW[i] = 0;
-	}
-	
 	getCCCount(x1, y1, x2, y2, nCass, nCons, locCount, wSize, wCount, casInW, conInW, elimIntersectOD);
 
 //	for(int i = 0; i < locCount; i++) {
@@ -188,8 +183,10 @@ int main(int argc, char ** argv) {
 			locEnding[i] = accCount;
 		}
 
-		nExtreme = monteCarlo(x1, y1, x2, y2, locEnding, locCount, casCount, casCount + conCount, clusterCas, center, cRadius, highCluster, nClusters, nSim);	
+//		nExtreme = monteCarloOld(x1, y1, x2, y2, locEnding, locCount, casCount, casCount + conCount, clusterCas, center, cRadius, highCluster, nClusters, nSim);	
 
+		nExtreme =  monteCarlo(x1, y1, x2, y2, locEnding, locCount, casCount, casCount + conCount, wSize, wCount, elimIntersectOD, highLow, cLL, highCluster, nClusters, nSim);
+		
 		free(locEnding);
 	}	
 

@@ -7,6 +7,11 @@ void getCCCount(double * x1, double * y1, double * x2, double * y2, int * nCass,
 	double distance;
 	int minWindow;
 
+	for(int i = 0; i < locCount * wCount; i++) {
+		casInW[i] = 0;
+		conInW[i] = 0;
+	}
+
 #pragma omp parallel for private(distance, minWindow)
 	for(int i = 0; i < locCount; i++) {
 		for(int j = 0; j < locCount; j++) {
