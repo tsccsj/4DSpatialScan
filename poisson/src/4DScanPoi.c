@@ -86,11 +86,6 @@ int main(int argc, char ** argv) {
 		exit(1);
 	}
 
-	for(int i = 0; i < locCount * wCount; i++) {
-		popInW[i] = 0;
-		eventInW[i] = 0;
-	}
-
 	getPECount(x1, y1, x2, y2, nPop, nEvent, locCount, wSize, wCount, popInW, eventInW, elimIntersectOD);
 	
 /*	
@@ -192,7 +187,8 @@ int main(int argc, char ** argv) {
 
 	if(nSim > 0) {
 
-		nExtreme = monteCarlo(x1, y1, x2, y2, nPop, locCount, popCount, eventCount, clusterEvent, center, cRadius, highCluster, nClusters, nSim);
+//		nExtreme = monteCarloOld(x1, y1, x2, y2, nPop, locCount, popCount, eventCount, clusterEvent, center, cRadius, highCluster, nClusters, nSim);
+		nExtreme = monteCarlo(x1, y1, x2, y2, nPop, popInW, locCount, popCount, eventCount, wSize, wCount, highLow, elimIntersectOD, cLL, nClusters, nSim);
 	}
 
 	printf("############### Cluster Info ###############\n");

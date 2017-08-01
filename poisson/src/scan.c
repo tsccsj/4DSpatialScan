@@ -7,6 +7,11 @@ void getPECount(double * x1, double * y1, double * x2, double * y2, int * nPop, 
 	double distance;
 	int minWindow;
 
+	for(int i = 0; i < locCount * wCount; i++) {
+		popInW[i] = 0;
+		eventInW[i] = 0;
+	}
+
 #pragma omp parallel for private(distance, minWindow)
 	for(int i = 0; i < locCount; i++) {
 		for(int j = 0; j < locCount; j++) {
@@ -34,6 +39,41 @@ void getPECount(double * x1, double * y1, double * x2, double * y2, int * nPop, 
 
 	return;
 }
+
+void getECountOnly(double * x1, double * y1, double * x2, double * y2, int * nEvent, int locCount, double wSize, int wCount, int * eventInW, double elimIntersectOD) {
+	double distance;
+	int minWindow;
+
+	for(int i = 0; i < locCount * wCount; i++) {
+		eventInW[i] = 0;
+	}
+
+#pragma omp parallel for private(distance, minWindow)
+	for(int i = 0; i < locCount; i++) {
+		for(int j = 0; j < locCount; j++) {
+			distance = sqrt((x1[i] - x1[j]) * (x1[i] - x1[j]) + (y1[i] - y1[j]) * (y1[i] - y1[j]) + (x2[i] - x2[j]) * (x2[i] - x2[j]) + (y2[i] - y2[j]) * (y2[i] - y2[j]));
+			minWindow = (int)(ceil(distance / wSize));
+			if(minWindow > 0)
+				minWindow --;
+			for(int k = minWindow; k < wCount; k++) {
+				eventInW[i * wCount + k] += nEvent[j];
+			}	
+		}
+
+		if(elimIntersectOD > 0) {
+			double ODDistance = sqrt((x1[i] - x2[i]) * (x1[i] - x2[i]) + (y1[i] - y2[i]) * (y1[i] - y2[i])) / elimIntersectOD;
+			int maxWindow = (int)(ceil(ODDistance / wSize));
+			if(maxWindow > 0)
+				maxWindow --;
+			for(int k = maxWindow; k < wCount; k++) {
+				eventInW[i * wCount + k] = -1;
+			}
+		}
+	}
+
+	return;
+}
+
 
 void loglikelihood(double * ll, int * popInW, int * eventInW, int totalWindow, int popCount, int eventCount, int highLow) {
 	

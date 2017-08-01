@@ -2,6 +2,7 @@
 #include <stdlib.h>
 #include <random>
 #include <omp.h>
+#include "scan.h"
 
 using namespace std;
 
@@ -19,7 +20,75 @@ void simulateEvents(int * nPop, int * simEvents, int locCount, int eventCount) {
 	}
 }
 
-int * monteCarlo(double * x1, double * y1, double * x2, double * y2, int * nPop, int locCount, int popCount, int eventCount, int * clusterEvent, int * center, double * cRadius, bool * highCluster, int nClusters, int nSim) {
+int * monteCarlo(double * x1, double * y1, double * x2, double * y2, int * nPop, int * popInW, int locCount, int popCount, int eventCount, double wSize, int wCount, int highLow, double elimIntersectOD, double * clusterLL, int nClusters, int nSim) {
+
+	int * nExtreme;
+
+	if(NULL == (nExtreme = (int *) malloc (nClusters * sizeof(int)))) {
+		printf("ERROR: Out of memory at line %d in file %s\n", __LINE__, __FILE__);
+		exit(1);
+	}
+
+	for(int i = 0; i < nClusters; i++)
+		nExtreme[i] = 0;
+
+	int * simEvents;
+	if(NULL == (simEvents = (int *) malloc (locCount * sizeof(int)))) {
+		printf("ERROR: Out of memory at line %d in file %s\n", __LINE__, __FILE__);
+		exit(1);
+	}
+
+	int * simEventInW;
+	double * simll;
+
+	if(NULL == (simEventInW = (int *) malloc (locCount * wCount * sizeof(int)))) {
+		printf("ERROR: Out of memory at line %d in file %s\n", __LINE__, __FILE__);
+		exit(1);
+	}
+	if(NULL == (simll = (double *) malloc (locCount * wCount * sizeof(double)))) {
+		printf("ERROR: Out of memory at line %d in file %s\n", __LINE__, __FILE__);
+		exit(1);
+	}
+
+	double simMaxLL;
+
+	for(int i = 0; i < nSim; i++) {
+	
+		simulateEvents(nPop, simEvents, locCount, eventCount);	
+
+		getECountOnly(x1, y1, x2, y2, simEvents, locCount, wSize, wCount, simEventInW, elimIntersectOD);
+		
+		loglikelihood(simll, popInW, simEventInW, locCount * wCount, popCount, eventCount, highLow);
+
+		simMaxLL = -9999; //Possion's LL is larger than 0
+		
+		for(int k = 0; k < locCount * wCount; k++) {
+			if(simll[k] > 0 && simll[k] > simMaxLL) {
+				simMaxLL = simll[k];
+			}
+		}
+
+		if(simMaxLL > 0) { 
+			for(int j = 0; j < nClusters; j++) {
+				if(simMaxLL > clusterLL[j]) {
+					nExtreme[j] ++;
+				}
+			}
+		}
+		
+	}
+
+
+	free(simEventInW);
+	free(simll);
+
+	free(simEvents);
+
+	return nExtreme;
+
+}
+
+int * monteCarloOld(double * x1, double * y1, double * x2, double * y2, int * nPop, int locCount, int popCount, int eventCount, int * clusterEvent, int * center, double * cRadius, bool * highCluster, int nClusters, int nSim) {
 	
 	int * nExtreme;
 
