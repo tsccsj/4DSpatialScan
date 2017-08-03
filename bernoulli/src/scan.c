@@ -1,7 +1,7 @@
 /**
  * scan.c
  * Authors: Yizhao Gao <yizhaotsccsj@gmail.com>
- * Date: {08/01/2017}
+ * Date: {08/03/2017}
  */
 
 #include <stdio.h>
@@ -33,9 +33,7 @@ void getCCCount(double * x1, double * y1, double * x2, double * y2, int * nCass,
 
 		if(elimIntersectOD > 0) {
 			double ODDistance = sqrt((x1[i] - x2[i]) * (x1[i] - x2[i]) + (y1[i] - y2[i]) * (y1[i] - y2[i])) / elimIntersectOD;
-			int maxWindow = (int)(ceil(ODDistance / wSize));
-			if(maxWindow > 0)
-				maxWindow --;
+			int maxWindow = ODDistance / wSize;
 			for(int k = maxWindow; k < wCount; k++) {
 				casInW[i * wCount + k] = -1;
 			}
