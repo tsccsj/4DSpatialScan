@@ -31,7 +31,7 @@ void randomLabel(int * indAll, int casCount, int allCount) {
 	return;
 }
 
-int * monteCarlo(double * x1, double * y1, double * x2, double * y2, int * locEnding, int locCount, int casCount, int allCount, double wSize, int wCount, double elimIntersectOD, bool highLow, double * clusterLL, int nClusters, int nSim) {
+int * monteCarlo(double * x1, double * y1, double * x2, double * y2, int * locEnding, int locCount, int casCount, int allCount, double wSize, int wCount, double elimIntersectOD, int highLow, double * clusterLL, int nClusters, int nSim) {
 	int * nExtreme;
 
 	if(NULL == (nExtreme = (int *) malloc (nClusters * sizeof(int)))) {
