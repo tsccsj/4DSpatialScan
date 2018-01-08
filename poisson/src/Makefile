@@ -1,5 +1,5 @@
 GCC= g++
-OMPFLAGS = -g -fopenmp
+OMPFLAGS = -fopenmp
 
 all: 4DScanPoi
 
