@@ -3,6 +3,10 @@ An approach to find clusters (local excesses of events) in origin-destination mo
 It is an extension of Martin Kulldorff's Spatial Scan Statistics(1997) to find the spatial clusters of spatial interactions (e.g. OD movement).
 Two models are implemented: a *Poisson Model* and a *Bernoulli Model*.
 
+## Publication
+Gao, Y., Ting, L., Wang, S., Jeong, MH and Soltani, K., 2018. A multidimensional spatial scan statistics approach t movement pattern comparison. International Journal of Geographical Information Science, doi: 10.1080/13658816.2018.1426859.
+https://www.tandfonline.com/doi/full/10.1080/13658816.2018.1426859
+
 ## Bernoulli model
 A Bernoulli model handles spatial interactions that are in either one of two states (e.g. the migration of young people vs. the migration of senior people), which is often used to compare the spatial distributions of two types of spatial interactions, such as a case-control study.
 ### To run
